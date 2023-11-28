@@ -19,6 +19,24 @@ public class PlayFabUserMgtTMP : MonoBehaviour
         UpdateMsg("Error" + e.GenerateErrorReport());
     }
 
+    public void OnGuestLoginRequest()
+    {
+        var guest = new LoginWithCustomIDRequest
+        {
+            CreateAccount = true,
+            CustomId = SystemInfo.deviceUniqueIdentifier
+
+        };
+
+        PlayFabClientAPI.LoginWithCustomID(guest, OnGuestLogin, OnError);
+    }
+
+    public void OnGuestLogin(LoginResult r)
+    {
+        ClientGetTitleData();
+        SceneManager.LoadScene("Menu");
+    }
+
     public void OnButtonRegUser()
     { //for button click
         var registerRequest = new RegisterPlayFabUserRequest
@@ -91,10 +109,9 @@ public class PlayFabUserMgtTMP : MonoBehaviour
         var req = new SendAccountRecoveryEmailRequest
         {
             Email = userEmail.text,
-            TitleId = "6881E"
+            TitleId = "E9883"
         };
         PlayFabClientAPI.SendAccountRecoveryEmail(req, OnPasswordReset, OnError);
-        SceneManager.LoadScene("Menu");
     }
     void OnPasswordReset(SendAccountRecoveryEmailResult r)
     {
