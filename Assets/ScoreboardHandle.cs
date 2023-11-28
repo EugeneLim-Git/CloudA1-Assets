@@ -10,6 +10,7 @@ public class ScoreboardHandle : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreboardText;
     [SerializeField] GameController gameController;
+    [SerializeField] XPManager xpManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class ScoreboardHandle : MonoBehaviour
         Debug.Log(msg);
         scoreboardText.text =msg+'\n';
         scoreboardText.enabled = true;
+        xpManager.SetUserData();
     }
 
     public void gameIsOver()
@@ -65,10 +67,6 @@ public class ScoreboardHandle : MonoBehaviour
 
     public void OnGetLeaderboard()
     {
-        var inv = new GetUserInventoryRequest
-        {
-
-        };
         var lbreq = new GetLeaderboardRequest
         {
             StatisticName = "highscore", //playfab leaderboard statistic name
@@ -89,4 +87,8 @@ public class ScoreboardHandle : MonoBehaviour
         Debug.Log("Successful leaderboard sent:" + r.ToString());
     }
 
+    void OnCurrencyUpdate(ModifyUserVirtualCurrencyResult r)
+    {
+        Debug.Log("Successful currency update!: " + r.ToString());
+    }
 }

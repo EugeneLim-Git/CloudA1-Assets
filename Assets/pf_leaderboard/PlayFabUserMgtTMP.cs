@@ -50,7 +50,6 @@ public class PlayFabUserMgtTMP : MonoBehaviour
     {
         UpdateMsg("Login Success!"+r.PlayFabId+r.InfoResultPayload.PlayerProfile.DisplayName);
         ClientGetTitleData(); //MOTD
-        GetUserData(); //Player Data
     }
     public void OnButtonLoginEmail() //login using email + password
     {
@@ -165,19 +164,7 @@ public class PlayFabUserMgtTMP : MonoBehaviour
             UpdateMsg(error.GenerateErrorReport());
         });
     }
-    public void GetUserData() { //Player Data
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest() 
-        , result => {
-            UpdateMsg("Got user data:");
-            if (result.Data == null || !result.Data.ContainsKey("XP")) UpdateMsg("No XP");
-            else XP.text=result.Data["XP"].Value;
-            if (result.Data == null || !result.Data.ContainsKey("Level")) UpdateMsg("No Level");
-            else level.text=result.Data["Level"].Value;          
-        }, (error) => {
-            UpdateMsg("Got error retrieving user data:");
-            UpdateMsg(error.GenerateErrorReport());
-        });
-    }
+    
     public void GotoScene(string scenename){
         UnityEngine.SceneManagement.SceneManager.LoadScene(scenename);
     }

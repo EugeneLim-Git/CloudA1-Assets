@@ -2291,7 +2291,10 @@ namespace PlayFab
             PlayFabHttp.MakeApiCall("/Client/WriteTitleEvent", request, AuthType.LoginSession, resultCallback, errorCallback, customData, extraHeaders, context, callSettings);
         }
 
-
+        public static void UpdatePlayerStatistics(AddUserVirtualCurrencyRequest currencyUpdate, Action<UpdatePlayerStatisticsResult> onCurrencyUpdate, Action<PlayFabError> onError)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

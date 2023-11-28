@@ -16,7 +16,7 @@ public class SkillBox : MonoBehaviour
 {
     [SerializeField]TMP_InputField SkillName;
     [SerializeField]Slider SkillLevelSlider;
-    [SerializeField]TMP_Text SKillLevelText;
+    [SerializeField]TMP_Text SkillLevelText;
 
     public Skill ReturnClass(){
         return new Skill(SkillName.text,(int)SkillLevelSlider.value);
@@ -27,6 +27,6 @@ public class SkillBox : MonoBehaviour
     }
     public void SliderChangeUpdate(float num){
 
-        SKillLevelText.text=SkillLevelSlider.value.ToString();
+        SkillLevelText.text=SkillLevelSlider.value.ToString();
     }   
 }

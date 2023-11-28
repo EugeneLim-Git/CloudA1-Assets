@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Spaceshooter/_Scenes/Main.unity
     guid: 0938f1be7c1804045bc2441b202785af
+  - enabled: 1
+    path: Assets/Scenes/ShopScene.unity
+    guid: 321fe68aedc931a40bca00a8383c03e3
   m_configObjects: {}

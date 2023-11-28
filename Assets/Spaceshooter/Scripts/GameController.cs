@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using PlayFab.ClientModels;
+using PlayFab;
 
 public class GameController : MonoBehaviour {
 
     [SerializeField] ScoreboardHandle scoreboardHandle;
+    [SerializeField] AudioSource audioSource;
 
     public Vector3 positionAsteroid;
     public GameObject asteroid;
@@ -27,6 +30,8 @@ public class GameController : MonoBehaviour {
     private List<GameObject> asteroids;
 
     private void Start() {
+
+        audioSource.enabled = false;
         asteroids = new List<GameObject> {
             asteroid,
             asteroid2,
@@ -40,6 +45,11 @@ public class GameController : MonoBehaviour {
         score = 0;
         StartCoroutine(spawnWaves());
         updateScore();
+    }
+
+    private void Awake()
+    {
+        GetPlayerInventory();
     }
 
     private void Update() {
@@ -90,4 +100,25 @@ public class GameController : MonoBehaviour {
         scoreText.text = "Score:" + score;
     }
 
+    public void GetPlayerInventory()
+    {
+        var UserInv = new GetUserInventoryRequest();
+        PlayFabClientAPI.GetUserInventory(UserInv,
+        result => {
+            List<ItemInstance> ii = result.Inventory;
+            foreach (ItemInstance i in ii)
+            {
+                if (i.ItemId == "musicPass")
+                {
+                    audioSource.enabled = true;
+                }
+            }
+        }, OnError);
+        Debug.Log(audioSource.enabled);
+    }
+
+    void OnError(PlayFabError e) //report any errors here!
+    {
+        Debug.Log("Error" + e.GenerateErrorReport());
+    }
 }

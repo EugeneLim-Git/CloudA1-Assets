@@ -13,7 +13,7 @@ public class SkillBoxManager:MonoBehaviour
         Debug.Log("JSON data prepared:"+stringListAsJson);
         var req=new UpdateUserDataRequest{
             Data=new Dictionary<string, string>{ //package as dictionary item
-                {"Skills",stringListAsJson}
+                {"Rating",stringListAsJson}
             }
         };
         PlayFabClientAPI.UpdateUserData(req,result =>Debug.Log("Data sent success!"),OnError);
@@ -24,7 +24,7 @@ public class SkillBoxManager:MonoBehaviour
     void OnJSONDataReceived(GetUserDataResult r){
         Debug.Log("received JSON data");
         if(r.Data!=null&&r.Data.ContainsKey("Skills")){
-            Debug.Log(r.Data["Skills"].Value);
+            Debug.Log(r.Data["Rating"].Value);
             JSListWrapper<Skill> jlw=JsonUtility.FromJson<JSListWrapper<Skill>>(r.Data["Skills"].Value);
             for(int i=0;i<SkillBoxes.Length;i++){
                 SkillBoxes[i].SetUI(jlw.list[i]);
